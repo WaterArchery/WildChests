@@ -219,7 +219,9 @@ public class WildChestBlockEntity extends ChestBlockEntity implements WorldlyCon
 
                 org.bukkit.inventory.ItemStack[] itemsToAdd = ChestUtils.fixItemStackAmount(
                         itemStack, plugin.getProviders().getItemAmount(item));
-
+                if (item.getItemStack().hasItemMeta() && item.getItemStack().getItemMeta().hasDisplayName()) {
+                    continue;
+                }
                 Map<Integer, org.bukkit.inventory.ItemStack> leftOvers = chest.addItems(itemsToAdd);
 
                 if (leftOvers.isEmpty()) {

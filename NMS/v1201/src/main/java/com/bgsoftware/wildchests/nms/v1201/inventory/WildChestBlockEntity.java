@@ -35,6 +35,7 @@ import net.minecraft.world.level.block.entity.BlockEntityTicker;
 import net.minecraft.world.level.block.entity.ChestBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.AABB;
+import org.bukkit.Bukkit;
 import org.bukkit.Particle;
 import org.bukkit.craftbukkit.v1_20_R1.CraftParticle;
 import org.bukkit.craftbukkit.v1_20_R1.entity.CraftHumanEntity;
@@ -217,9 +218,11 @@ public class WildChestBlockEntity extends ChestBlockEntity implements WorldlyCon
                 org.bukkit.inventory.ItemStack itemStack = CraftItemStack.asCraftMirror(itemEntity.getItem());
                 Item item = (Item) itemEntity.getBukkitEntity();
 
+                if (item.getItemStack().hasItemMeta() && item.getItemStack().getItemMeta().hasDisplayName()) {
+                    continue;
+                }
                 org.bukkit.inventory.ItemStack[] itemsToAdd = ChestUtils.fixItemStackAmount(
                         itemStack, plugin.getProviders().getItemAmount(item));
-
                 Map<Integer, org.bukkit.inventory.ItemStack> leftOvers = chest.addItems(itemsToAdd);
 
                 if (leftOvers.isEmpty()) {

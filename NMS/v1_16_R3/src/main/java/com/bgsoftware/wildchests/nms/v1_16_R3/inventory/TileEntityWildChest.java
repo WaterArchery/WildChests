@@ -215,7 +215,9 @@ public class TileEntityWildChest extends TileEntityChest implements IWorldInvent
                     ChestUtils.SUCTION_PREDICATE.test((CraftItem) entityItem.getBukkitEntity(), chestData))) {
                 org.bukkit.inventory.ItemStack itemStack = CraftItemStack.asCraftMirror(entityItem.getItemStack());
                 Item item = (Item) entityItem.getBukkitEntity();
-
+                if (item.getItemStack().hasItemMeta() && item.getItemStack().getItemMeta().hasDisplayName()) {
+                    continue;
+                }
                 org.bukkit.inventory.ItemStack[] itemsToAdd = ChestUtils.fixItemStackAmount(
                         itemStack, plugin.getProviders().getItemAmount(item));
 

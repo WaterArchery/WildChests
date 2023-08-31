@@ -235,7 +235,9 @@ public class TileEntityWildChest extends TileEntityChest implements IWorldInvent
                 EntityItem entityItem = (EntityItem) entity;
                 org.bukkit.inventory.ItemStack itemStack = CraftItemStack.asCraftMirror(entityItem.getItemStack());
                 Item item = (Item) entityItem.getBukkitEntity();
-
+                if (item.getItemStack().hasItemMeta() && item.getItemStack().getItemMeta().hasDisplayName()) {
+                    continue;
+                }
                 org.bukkit.inventory.ItemStack[] itemsToAdd = ChestUtils.fixItemStackAmount(
                         itemStack, plugin.getProviders().getItemAmount(item));
 

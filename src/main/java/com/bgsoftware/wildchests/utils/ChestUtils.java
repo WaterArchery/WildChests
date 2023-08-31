@@ -38,6 +38,7 @@ public final class ChestUtils {
     };
 
     public static ItemStack[] fixItemStackAmount(ItemStack itemStack, int amount) {
+
         if (amount <= itemStack.getMaxStackSize())
             return new ItemStack[]{itemStack};
 
@@ -145,7 +146,8 @@ public final class ChestUtils {
     public static boolean trySellItem(OfflinePlayer player, Chest chest, ItemStack toSell) {
         if (toSell == null || toSell.getType() == Material.AIR)
             return false;
-
+        if (toSell.hasItemMeta() && toSell.getItemMeta().hasDisplayName())
+            return false;
         ProvidersHandler.TransactionResult<Double> transactionResult = plugin.getProviders().canSellItem(player, toSell);
 
         if (!transactionResult.isSuccess())
